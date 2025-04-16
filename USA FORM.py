@@ -1632,7 +1632,13 @@ if "authenticated" not in st.session_state:
         "last_message_ids": []
     })
 
-init_db()
+# Ensure database is initialized at the start
+try:
+    init_db()
+except Exception as e:
+    st.error(f"Database initialization failed: {str(e)}")
+    st.stop()
+
 init_break_session_state()
 
 if not st.session_state.authenticated:
